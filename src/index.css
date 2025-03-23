@@ -13,6 +13,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  margin: 1.5rem;
+}
+
 button {
   margin: .5rem;
+}
+
+img {
+  width: 25rem;
 }
