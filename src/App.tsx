@@ -27,7 +27,7 @@ useEffect(() => {
     if (currentHiddenWord === word){
       setWon(true);
     }
-}, [hiddenWord])
+}, [hiddenWord, word])
 
   const checkLetter = (letter: string) => {
 
