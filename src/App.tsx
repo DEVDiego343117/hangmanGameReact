@@ -1,14 +1,15 @@
 
 import { useEffect, useState } from "react";
-import { letters } from "../helpers/letters";
+import { letters } from "./helpers/letters";
 import "./App.css";
 import { HangImage } from "./components/HangImage";
+import { getRandomWord } from "./helpers/getRandomWord";
 
 function App() {
 
-  const [word] = useState ("COMPUTER");
+  const [word, setWord] = useState (getRandomWord());
   const [hiddenWord, setHiddenWord] = useState ("_ ".repeat(word.length));
-  const [attempts, setAttempts] = useState(0)
+  const [attempts, setAttempts] = useState(0) //I
   const [lose, setLose] = useState(false);
   const [won, setWon] = useState(false);
 
@@ -30,7 +31,8 @@ useEffect(() => {
 
   const checkLetter = (letter: string) => {
 
-    if(lose) return; //Validation if lost cannot enter more letters
+    if(lose) return; //Validation if lose cannot enter more letters
+    if(won) return; //Validation if won cannot enter more letters
 
     if(!word.includes(letter)) {
       setAttempts( Math.min(attempts + 1, 9) );
@@ -47,12 +49,21 @@ useEffect(() => {
     setHiddenWord(hiddenWordArray.join(" "));
   } //Function show hidden word
 
+  const newGame = () => {
+    const newWord = getRandomWord();
+    setWord (newWord);
+    setHiddenWord("_ ".repeat(newWord.length));
+    setAttempts(0);
+    setLose(false);
+    setWon(false);
+  }
+
   return (
     <div className="App">
 
       {/*Images*/}
       <HangImage imageNumber={ attempts }></HangImage>
-
+  
       {/*Hidden Word*/}
       <p>{hiddenWord}</p>
 
@@ -75,14 +86,27 @@ useEffect(() => {
 
       {/*Letters Bottoms*/}
       {
-        letters.map(letter => (
-          <button 
-          onClick={() => checkLetter(letter)}
-          key={letter}>
-            {letter}</button>
-        ))
+       <div className="letters-container">
+       {
+         letters.map(letter => (
+           <button 
+             onClick={() => checkLetter(letter)}
+             key={letter}>
+             {letter}
+           </button>
+         ))
+       }
+     </div>
       } {/*Array alphabet*/}
-      
+
+      {/* New Game Button */}
+      {
+    (won || lose) && (
+    <div className="new-game-container">
+      <button onClick={newGame} className="newgame">¿New Game?</button>
+    </div>
+    )
+  }
 
     </div>
   )
