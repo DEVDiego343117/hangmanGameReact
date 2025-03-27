@@ -46,7 +46,7 @@ button:hover {
 
 @media (max-width: 768px) {
   button {
-    font-size: 1.1rem; 
+    font-size: 1.25rem; 
     padding: 0.5rem 1rem;
   }
 }
@@ -67,4 +67,3 @@ p {
 .new-game-container button  {
   margin-top: 2.5rem;
 }
-
